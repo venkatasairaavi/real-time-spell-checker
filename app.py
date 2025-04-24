@@ -2,6 +2,9 @@
 
 import tkinter as tk
 from tkinter import ttk 
+from spellchecker import SpellChecker 
+
+spell = SpellChecker() 
 
 # main window
 root = tk.Tk() 
@@ -15,7 +18,13 @@ text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 # spell check button
 def check_spelling():
     content = text_area.get("1.0", tk.END)
-    print("Content to check: ", content)
+    words = content.split()
+
+    misspelled = spell.unknown(words) 
+
+    print("\nMisspelled words:")
+    for word in misspelled:
+        print(f"🔴 {word}") 
 
 check_button = ttk.Button(root, text="Check Spelling", command=check_spelling)
 check_button.pack(pady=10)
